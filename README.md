@@ -11,14 +11,14 @@ And from Geoff Graham's website:
     sensors and more.
 
     You can use the Micromite as the intelligence inside any project that requires a medium speed microcontroller 
-    but without the hassle of programming in a complex language. 
+    but without the hassle of programming in a complex language." 
 
 The projects in this repository relate to a minimal breadboard setup that has just a PIC32 chip, a battery pack to supply power, and an FTDI chip that allows a USB connection to a modern computer. ![image](https://github.com/dvanaria/micromite_projects/assets/14303838/2ea1959f-071b-4436-a6c3-5d56a6057c80)
 
 The MMBASIC software running on the microcontroller is interfaced using a terminal emulator such as TeraTerm running on the connected computer. This setup is like a "modern retro computer" that has the following specs:
 
     59 KB of Program Memory space (held in non-volitile Flash storage)
-    52 KB of Program Data space to hold program variables and data
+    52 KB of Program Data space to hold program variables and data (RAM)
     50 MHz processor
 
-The terminal is connected via a 38,400 baud connection, and since this is a text-only display interface, none of the graphics commands of MMBASIC are available here.
+The terminal is connected via a 38400 baud connection, and since this is a text-only display interface, none of the graphics commands of MMBASIC are available with this particular (breadboard) setup.
