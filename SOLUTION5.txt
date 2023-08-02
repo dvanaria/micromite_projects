@@ -1,0 +1,159 @@
+'DS1302 signal to PIC32 pin
+CONST DAT  = 2
+CONST SCLK = 4
+CONST RST  = 6
+
+SETPIN DAT,  DOUT
+SETPIN SCLK, DOUT
+SETPIN RST,  DOUT
+
+'Time to pause to generate waveforms
+DIM INTEGER MS_PAUSE = 3
+
+'Payloads to write to DS1302 registers or read from DS1302 registers
+DIM INTEGER OUTPUT_DATA(7) 
+DIM INTEGER INPUT_DATA(7)
+
+'Taken from DS1302 datasheet
+DIM INTEGER COMMAND_READ_SEC(7)    = (1,0,0,0,0,0,0,1)
+DIM INTEGER COMMAND_WRITE_SEC(7)   = (0,0,0,0,0,0,0,1)
+DIM INTEGER COMMAND_READ_MIN(7)    = (1,1,0,0,0,0,0,1)
+DIM INTEGER COMMAND_WRITE_MIN(7)   = (0,1,0,0,0,0,0,1)
+DIM INTEGER COMMAND_READ_HOUR(7)   = (1,0,1,0,0,0,0,1)
+DIM INTEGER COMMAND_WRITE_HOUR(7)  = (0,0,1,0,0,0,0,1)
+DIM INTEGER COMMAND_READ_DATE(7)   = (1,1,1,0,0,0,0,1)
+DIM INTEGER COMMAND_WRITE_DATE(7)  = (0,1,1,0,0,0,0,1)
+DIM INTEGER COMMAND_READ_MONTH(7)  = (1,0,0,1,0,0,0,1)
+DIM INTEGER COMMAND_WRITE_MONTH(7) = (0,0,0,1,0,0,0,1)
+DIM INTEGER COMMAND_READ_DAY(7)    = (1,1,0,1,0,0,0,1)
+DIM INTEGER COMMAND_WRITE_DAY(7)   = (0,1,0,1,0,0,0,1)
+DIM INTEGER COMMAND_READ_YEAR(7)   = (1,0,1,1,0,0,0,1)
+DIM INTEGER COMMAND_WRITE_YEAR(7)  = (0,0,1,1,0,0,0,1)
+
+
+REM **** PROGRAM ****
+SET_OUTPUT 0,0,1,1,0,0,0,0
+SET_INPUT  1,1,1,0,0,1,1,1
+WRITE_TRANSFER COMMAND_WRITE_SEC()
+READ_TRANSFER COMMAND_READ_SEC()
+  PRINT
+  PRINT "RESULTS: ";
+  FOR I = 0 TO 7
+    PRINT INPUT_DATA(I);
+  NEXT I
+END 
+
+
+
+
+SUB WRITE_TRANSFER COMMAND_BYTE_WRITE_REG%()
+
+  SETPIN DAT, DOUT
+  PAUSE MS_PAUSE
+
+  ' initialize WRITE transfer
+  PIN(DAT)  = 0  
+  PIN(SCLK) = 0  :  ' SCLK must be 0 before initiating transfer
+  PIN(RST)  = 0
+  PAUSE MS_PAUSE
+
+  ' begin transfer
+  PIN(RST)  = 1  :   ' This intiates transfer, setting ~RST to 1
+  PAUSE MS_PAUSE
+
+  ' send command byte to WRITE to DS1302's registers
+  FOR I = 0 TO 7
+    PIN(DAT)  = COMMAND_BYTE_WRITE_REG%(I)
+    PAUSE MS_PAUSE
+    PIN(SCLK) = 1
+    PAUSE MS_PAUSE
+    PIN(SCLK) = 0
+    PAUSE MS_PAUSE
+  NEXT I  
+
+  ' write to DS1302 register
+  FOR I = 0 TO 7
+    PIN(DAT)  = OUTPUT_DATA(I)
+    PAUSE MS_PAUSE
+    PIN(SCLK) = 1
+    PAUSE MS_PAUSE
+    PIN(SCLK) = 0
+    PAUSE MS_PAUSE
+  NEXT I  
+
+  ' end transfer
+  PIN(RST)  = 0  :  ' This ENDS transfer, setting ~RST to 0
+  PAUSE MS_PAUSE
+
+END SUB
+
+
+
+
+SUB READ_TRANSFER COMMAND_BYTE_READ_REG%()
+
+  SETPIN DAT, DOUT
+  PAUSE MS_PAUSE
+
+  ' initialize READ transfer
+  PIN(DAT)  = 0  
+  PIN(SCLK) = 0  :  ' SCLK must be 0 before initiating transfer
+  PIN(RST)  = 0
+  PAUSE MS_PAUSE
+
+  ' begin transfer
+  PIN(RST)  = 1  :   ' This intiates transfer, setting ~RST to 1
+  PAUSE MS_PAUSE
+
+  ' send command byte to READ from DS1302 register
+  FOR I = 0 TO 7
+    PIN(DAT) = COMMAND_BYTE_READ_REG%(I)
+    PAUSE MS_PAUSE
+    PIN(SCLK) = 1
+    PAUSE MS_PAUSE
+    IF I <> 7 THEN   ' DON'T SET CLOCK TO 0 AFTER LAST COMMAND BIT
+      PIN(SCLK) = 0
+      PAUSE MS_PAUSE
+    ENDIF
+  NEXT I 
+  
+  SETPIN DAT, DIN, PULLUP
+  PAUSE MS_PAUSE
+
+  ' read data coming in from DS1302
+  FOR I = 0 TO 7
+    IF I <> 0 THEN
+      PIN(SCLK) = 1
+      PAUSE MS_PAUSE
+    ENDIF
+    PIN(SCLK) = 0
+    PAUSE MS_PAUSE
+    INPUT_DATA(I) = PIN(DAT)
+    PAUSE MS_PAUSE
+  NEXT I
+
+END SUB
+
+
+SUB SET_OUTPUT A,B,C,D,E,F,G,H
+    OUTPUT_DATA(0) = A
+    OUTPUT_DATA(1) = B
+    OUTPUT_DATA(2) = C
+    OUTPUT_DATA(3) = D
+    OUTPUT_DATA(4) = E
+    OUTPUT_DATA(5) = F
+    OUTPUT_DATA(6) = G
+    OUTPUT_DATA(7) = H
+END SUB
+
+
+SUB SET_INPUT A,B,C,D,E,F,G,H
+    INPUT_DATA(0)  = A
+    INPUT_DATA(1)  = B 
+    INPUT_DATA(2)  = C 
+    INPUT_DATA(3)  = D 
+    INPUT_DATA(4)  = E 
+    INPUT_DATA(5)  = F 
+    INPUT_DATA(6)  = G 
+    INPUT_DATA(7)  = H
+END SUB

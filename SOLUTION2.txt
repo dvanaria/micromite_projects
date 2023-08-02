@@ -1,0 +1,89 @@
+SETPIN 2, DOUT
+PRINT "Pin 2 set to DIGITAL OUT, connected to DS1302's DAT"
+SETPIN 26, DIN, PULLDOWN
+PRINT "Pin 26 set to DIGITAL IN, connected to DS1302's DAT"
+SETPIN 4, DOUT
+PRINT "Pin 4 set to DIGITAL OUT, connected to DS1302's SCLK"
+SETPIN 6, DOUT
+PRINT "Pin 6 set to DIGITAL OUT, connected to DS1302's RST"
+
+REM NOTE: THE INPUT PIN ON THE VMA301 MODULE LABELED "RST" IS FED 
+  '       DIRECTLY TO THE DS1302'S ~RST PIN, SO = 0 PRE-INITIALIZATION, 
+  '       THEN SET = 1 TO INITIALIZE A DATA TRANSFER (2 BYTES)
+
+DIM INTEGER MS1 = 30
+
+DIM INTEGER COMMAND_SET_YEAR(7)  = (1,0,0,0,1,1,0,0) 
+DIM INTEGER SET_YEAR(7)          = (1,1,0,1,1,1,0,1)
+DIM INTEGER COMMAND_READ_YEAR(7) = (1,0,0,0,1,1,0,1)  
+DIM INTEGER RECEIVE_YEAR(7)      = (1,1,0,1,1,1,1,1)
+
+  PRINT "INITIALIZING DATA TRANSFER TO DS1302"
+  PIN(2) = 1  :  ' initialize DAT
+  PIN(4) = 0  :  ' SCLK must be 0 before initiating transfer
+  PIN(6) = 0
+  PAUSE MS1
+  PAUSE MS1
+  PIN(6) = 1  :  ' This intiates transfer, setting ~RST to 1
+  PAUSE MS1
+
+  PRINT "SENDING COMMAND BYTE: 'WRITE TO YEAR REGISTER'"
+  FOR I = 0 TO 7
+    PIN(2) = COMMAND_SET_YEAR(I)
+    PAUSE MS1
+    PIN(4) = 1
+    PAUSE MS1
+    PIN(4) = 0
+    PAUSE MS1
+  NEXT I  
+
+  FOR I = 0 TO 7
+    PIN(2) = SET_YEAR(I)
+    PAUSE MS1
+    PIN(4) = 1
+    PAUSE MS1
+    PIN(4) = 0
+    PAUSE MS1
+  NEXT I  
+
+  PRINT "END OF FIRST TRANSFER (WRITE)"
+  PIN(6) = 0  :  ' This ENDS transfer, setting ~RST to 0
+  PAUSE MS1
+  
+  PIN(2) = 1  :  ' initialize DAT
+  PIN(4) = 0  :  ' SCLK must be 0 before initiating transfer
+  PAUSE MS1
+  PAUSE MS1
+  PAUSE MS1
+  PIN(6) = 1  :  ' This intiates transfer, setting ~RST to 1
+  PAUSE MS1
+
+  PRINT "SENDING COMMAND BYTE: 'READ YEAR REGISTER'"
+  FOR I = 0 TO 7
+    PIN(2) = COMMAND_READ_YEAR(I)
+    PAUSE MS1
+    PIN(4) = 1
+    PAUSE MS1
+    PIN(4) = 0
+    PAUSE MS1
+  NEXT I 
+
+    PIN(4) = 1
+    PAUSE MS1
+
+  PRINT "READING DATA: ";
+  FOR I = 0 TO 7
+           PRINT PIN(26)
+    PIN(4) = 0
+    PAUSE MS1
+           'PRINT PIN(26)
+    RECEIVE_YEAR(I) = PIN(26)
+    PRINT RECEIVE_YEAR(I)
+    PAUSE MS1
+           'PRINT PIN(26)
+    PIN(4) = 1
+    PAUSE MS1
+           'PRINT PIN(26)
+  NEXT I
+ 
+END
