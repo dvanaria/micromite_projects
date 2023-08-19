@@ -43,20 +43,21 @@ The MMBASIC software running on the microcontroller is interfaced using a termin
                TIME$ to the correct, current values, instead of them being reset
                to the PIC32's internal clock/timer upon each power-on cycle.
 
-               April 29, 2023
-
-        The PIC32 has an internal clock that is reset to January 1, 2000,
-        midnight when you power it on. 
-        When starting up the Micromite, you can view the two functions in 
-        MMBASIC that can tap into that time:
+        The PIC32 has an internal clock that is reset to a particular date (January 1, 2000) 
+        and particular time (00:00 midnight) when you power it on. The MMBASIC firmware, as
+        part of it's power-on startup code, set's two variables (DATE$ and TIME$) by 
+        polling this internal clock.
+        
+        You can access these variables directly, as they are just string datatypes, using
+        the PRINT statement:
             > PRINT DATE$
             01-01-2000
             > PRINT TIME$
             00:00:10
 
-        There are RTC modules that can be connected to the PIC32 and polled
+        There are RTC modules available that can be connected to the PIC32 and polled
         to find out the actual date and time (since it's battery backed memory
-        keeps track of it when power is off). 
+        keeps track of these values when power is off). 
 
         The Micromite manuals recommend certain RTC chips that MMBASIC supports
         with library I2C functions. The only module I have has an RTC chip
