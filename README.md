@@ -35,6 +35,8 @@ The MMBASIC software running on the microcontroller is interfaced using a termin
 **********************   
 **PROJECT: Interface Micromite to External RTC, to set MMBASIC environment variables DATE$ and TIME$**
 
+![rtc_to_pic32](https://github.com/dvanaria/micromite_projects/assets/14303838/72fdc2cd-e3e6-46f6-b329-dfc0f4f164cd)
+
      Overview: Connect an DS1302 RTC (Real Time Clock, as part of the VMA301 module
                from a company called Velleman) to a Micromite running MMBASIC MkII.
                Use it to set the Micromite's MMBASIC system variables DATE$ and 
