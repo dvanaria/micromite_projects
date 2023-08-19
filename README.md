@@ -9,7 +9,9 @@ This firmware takes the PIC32's available 256 KB of Flashable ROM and 64 KB of S
 
 MMBASIC is a modern BASIC interpreter and embedded OS created by Geoff Graham in 2014. This firmware allows working on embedded/microcontroller projects using a beginner-friendly language: a modernized BASIC language that is similar to GW-BASIC from back in the day. 
 
-From Wikipedia: "MMBasic was designed to mimic the original Microsoft BASIC (also known as MBASIC, BASICA or GW-BASIC) which was supplied with the Tandy TRS-80, Commodore 64 and the early IBM personal computers."  
+From Wikipedia: 
+
+    "MMBasic was designed to mimic the original Microsoft BASIC (also known as MBASIC, BASICA or GW-BASIC) which was supplied with the Tandy TRS-80, Commodore 64 and the early IBM personal computers."  
 
 And from Geoff Graham's website: 
 
