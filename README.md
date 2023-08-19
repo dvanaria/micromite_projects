@@ -68,9 +68,9 @@ The MMBASIC software running on the microcontroller is interfaced using a termin
 
      Lessons learned from this project:
 
-            1. Something as simple as an RTC has a datasheet that is 12 pages
-               long. This is just the nature of embedded systems. This chip,
-               that only keeps track of the time and date, a basic counter,
+            1. Something as simple as a RTC still has a datasheet that is 12 pages
+               long! This is just the nature of embedded systems. This chip,
+               that only keeps track of the time and date (a basic counter)
                has a complete internal structure, with 31 bytes of RAM, 7 
                registers, a control unit, a shift register to load for all
                read/writes to the outside world, and so on. 
