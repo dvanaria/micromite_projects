@@ -25,8 +25,8 @@ And from Geoff Graham's website:
     and drive output pins.  Special features include the ability to use touch sensitive LCD 
     displays, temperature sensors, distance sensors and more."
 
-    You can use the Micromite as the intelligence inside any project that requires a medium speed 
-    microcontroller but without the hassle of programming in a complex language." 
+    **You can use the Micromite as the intelligence inside any project that requires a medium speed 
+    microcontroller but without the hassle of programming in a complex language."** 
 
 The projects in this repository relate to a minimal breadboard setup that has just a PIC32 chip, a battery pack to supply power, and an FTDI chip that allows a USB connection to a modern computer. ![image](https://github.com/dvanaria/micromite_projects/assets/14303838/2ea1959f-071b-4436-a6c3-5d56a6057c80)
 
