@@ -11,7 +11,9 @@ MMBASIC is a modern BASIC interpreter and embedded OS created by Geoff Graham in
 
 From Wikipedia: 
 
-    "MMBasic was designed to mimic the original Microsoft BASIC (also known as MBASIC, BASICA or GW-BASIC) which was supplied with the Tandy TRS-80, Commodore 64 and the early IBM personal computers."  
+    "MMBasic was designed to mimic the original Microsoft BASIC (also known as MBASIC, BASICA 
+     or GW-BASIC) which was supplied with the Tandy TRS-80, Commodore 64 and the early IBM 
+     personal computers."  
 
 And from Geoff Graham's website: 
 
