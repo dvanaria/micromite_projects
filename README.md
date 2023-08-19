@@ -33,9 +33,9 @@ The projects in this repository relate to a minimal breadboard setup that has ju
 The MMBASIC software running on the microcontroller is interfaced using a terminal emulator such as TeraTerm running on the connected computer. The terminal is connected via a 38400 baud connection, and since this is a text-only display interface, none of the graphics commands of MMBASIC are available with this particular (breadboard) setup.
 
 **********************   
-PROJECT LIST:
+**PROJECT: Interface Micromite to External RTC, to set MMBASIC environment variables DATE$ and TIME$**
 
-    Project 1: Connect an DS1302 RTC (Real Time Clock, as part of the VMA301 module
+     Overview: Connect an DS1302 RTC (Real Time Clock, as part of the VMA301 module
                from a company called Velleman) to a Micromite running MMBASIC MkII.
                Use it to set the Micromite's MMBASIC system variables DATE$ and 
                TIME$ to the correct, current values, instead of them being reset
