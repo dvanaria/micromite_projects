@@ -17,15 +17,16 @@ From Wikipedia:
 
 And from Geoff Graham's website: 
 
-    "MMBasic is a Microsoft BASIC compatible implementation of the BASIC language with floating point, integer and 
-     string variables, arrays, long variable names, a built in program editor and many other features." 
+    "MMBasic is a Microsoft BASIC compatible implementation of the BASIC language with floating 
+     point, integer and string variables, arrays, long variable names, a built in program editor 
+     and many other features." 
 
-    "Using MMBasic you can use communications protocols, measure voltages, detect digital inputs and drive output 
-    pins.  Special features include the ability to use touch sensitive LCD displays, temperature sensors, distance 
-    sensors and more."
+    "Using MMBasic you can use communications protocols, measure voltages, detect digital inputs 
+    and drive output pins.  Special features include the ability to use touch sensitive LCD 
+    displays, temperature sensors, distance sensors and more."
 
-    You can use the Micromite as the intelligence inside any project that requires a medium speed microcontroller 
-    but without the hassle of programming in a complex language." 
+    You can use the Micromite as the intelligence inside any project that requires a medium speed 
+    microcontroller but without the hassle of programming in a complex language." 
 
 The projects in this repository relate to a minimal breadboard setup that has just a PIC32 chip, a battery pack to supply power, and an FTDI chip that allows a USB connection to a modern computer. ![image](https://github.com/dvanaria/micromite_projects/assets/14303838/2ea1959f-071b-4436-a6c3-5d56a6057c80)
 
