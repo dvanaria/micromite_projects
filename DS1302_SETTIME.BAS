@@ -1,5 +1,6 @@
-' Updates MMBASIC's DATE$ and TIME$ using a connection to a DS1302 RTC,
-'   which holds the current time/date in a battery backed IC.
+' Gathers current time and date from user, then uses that information
+' to send to the DS1302, for battery-backed storage.
+'
 '
 ' 4 connections from the DS1302 to the PIC32 are needed:
 '   RST  -> pin 6
